@@ -2,6 +2,9 @@
 *.slo
 *.lo
 *.o
+*.out
+*.plist
+*.dSYM
 
 # Compiled Dynamic libraries
 *.so
