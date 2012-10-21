@@ -21,7 +21,7 @@ struct Database {
 struct Connection {
   FILE *file;
   struct Database *db;
-}
+};
 
 void die(const char *message) {
   // If errno is set by method call
@@ -30,6 +30,8 @@ void die(const char *message) {
   } else {
     printf("ERROR: %s\n", message);
   }
+
+  exit(1);
 }
 
 void Address_print(struct Address *addr) {
@@ -42,7 +44,7 @@ void Database_load(struct Connection *conn) {
 }
 
 struct Connection *Database_open(const char *filename, char mode) {
-  struct Connection *conn = malloc(sizeo(struct Connection));
+  struct Connection *conn = malloc(sizeof(struct Connection));
   if(!conn) die("Memory allocation error");
 
   conn->db = malloc(sizeof(struct Database));
@@ -98,14 +100,17 @@ void Database_set(struct Connection *conn, int id, const char *name, const char 
   addr->set = 1;
   // FIX THIS BUG
   char *res = strncpy(addr->name, name, MAX_DATA);
+  if(strlen(name) > MAX_DATA) addr->name[MAX_DATA - 1] = 0x00;
   // demonstrate strncpy bug
   if(!res) die("Name copy failed");
+  // Ensure we cannot overflow
+  if(strlen(email) > MAX_DATA) addr->email[MAX_DATA - 1] = 0x00;
 
   res = strncpy(addr->email, email, MAX_DATA);
   if(!res) die("Email copy failed");
 }
 
-void Database_get(struct Connection *Conn, int id) {
+void Database_get(struct Connection *conn, int id) {
   struct Address *addr = &conn->db->rows[id];
 
   if(addr->set) {
@@ -159,7 +164,7 @@ int main(int argc, char *argv[]) {
       Database_write(conn);
       break;
     case 'd':
-      if(argv != 4) die("Need it to delete");
+      if(argc != 4) die("Need it to delete");
       Database_delete(conn, id);
       Database_write(conn);
       break;

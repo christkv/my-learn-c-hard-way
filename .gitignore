@@ -5,6 +5,13 @@
 *.out
 *.plist
 *.dSYM
+*.db
+*.dat
+
+# All exercises
+ex15
+ex16
+ex17
 
 # Compiled Dynamic libraries
 *.so
