@@ -5,6 +5,7 @@
 *.out
 *.plist
 *.dSYM
+*.DS_Store
 *.db
 *.dat
 
@@ -20,6 +21,7 @@ ex24
 ex25
 ex26
 devpkg
+ex29
 
 # Compiled Dynamic libraries
 *.so
