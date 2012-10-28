@@ -1,0 +1,3 @@
+DEBUG tests/libex29_tests.c:58: ----- RUNNING: ./tests/libex29_tests
+DEBUG tests/libex29_tests.c:50: 
+----- test_dlopen
